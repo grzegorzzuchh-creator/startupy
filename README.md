@@ -38,3 +38,7 @@ Domyślny tryb demonstracyjny udostępnia użytkownika managera. W środowisku z
 ## Integracje
 
 Adaptery są domyślnie wyłączone. API zwraca ten stan jawnie i nie symuluje wysyłki. Docelowe wiązania używają zmiennych `STARTUP_OUTLOOK_ENDPOINT`, `STARTUP_OUTLOOK_TOKEN`, `STARTUP_SHAREPOINT_ENDPOINT` i `STARTUP_SHAREPOINT_TOKEN`. Wartości sekretów muszą być dostarczane przez bezpieczną konfigurację środowiska, nigdy przez repozytorium.
+
+## Publiczny demonstrator
+
+Workflow `.github/workflows/pages.yml` publikuje frontend do GitHub Pages po każdym pushu do `main`. Na domenie `github.io` aplikacja automatycznie przechodzi w oznaczony tryb demonstracyjny: dane trafiają wyłącznie do `localStorage` danej przeglądarki, a wiadomości nigdy nie są wysyłane. Jest to wersja do prezentacji, nie środowisko produkcyjne.

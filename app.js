@@ -1,11 +1,13 @@
 const state = { skills: [], runs: [], projects: [], activeSkill: null };
 const toast = document.querySelector('.toast');
+const staticDemo = window.location.hostname.endsWith('github.io');
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
 }
 
 async function api(path, options = {}) {
+  if (staticDemo) return demoApi(path, options);
   const response = await fetch(path, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers || {}) } });
   const body = await response.json();
   if (!response.ok) {
@@ -13,6 +15,37 @@ async function api(path, options = {}) {
     throw new Error(`${body.error?.message || 'Nie udało się wykonać operacji.'} ${details}`.trim());
   }
   return body;
+}
+
+async function demoApi(path, options = {}) {
+  const method = options.method || 'GET';
+  if (path === '/api/me') return { user: { id: 'demo-manager', name: 'Anna Kozłowska', role: 'manager' } };
+  if (path === '/api/skills') {
+    const response = await fetch('data/skills.json');
+    const skills = await response.json();
+    return { skills: skills.filter((skill) => skill.status === 'published').map(({ executor, ...skill }) => skill) };
+  }
+  if (path === '/api/runs' && method === 'GET') return { runs: JSON.parse(localStorage.getItem('startup20-runs') || '[]') };
+  if (path === '/api/runs' && method === 'POST') {
+    const payload = JSON.parse(options.body || '{}');
+    const skill = state.skills.find((item) => item.id === payload.skillId);
+    const recipients = String(payload.input?.recipients || '').split(/[\n,;]/).map((item) => item.trim()).filter(Boolean);
+    if (payload.skillId === 'send-emails' && (!recipients.length || recipients.some((email) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)))) throw new Error('Podaj poprawne adresy odbiorców.');
+    const run = { id: crypto.randomUUID(), skillId: payload.skillId, skillTitle: skill?.title || 'Skill', createdAt: new Date().toISOString(), status: payload.skillId === 'send-emails' ? 'awaiting-review' : 'queued', summary: payload.skillId === 'send-emails' ? `${recipients.length} odbiorców` : skill?.title, message: payload.skillId === 'send-emails' ? 'Przygotowano podgląd demonstracyjny. Niczego nie wysłano.' : 'Zadanie demonstracyjne zapisano lokalnie.' };
+    const runs = [run, ...JSON.parse(localStorage.getItem('startup20-runs') || '[]')];
+    localStorage.setItem('startup20-runs', JSON.stringify(runs));
+    return { run };
+  }
+  if (path === '/api/creator/projects' && method === 'GET') return { projects: JSON.parse(localStorage.getItem('startup20-projects') || '[]') };
+  if (path === '/api/creator/projects' && method === 'POST') {
+    const input = JSON.parse(options.body || '{}');
+    if (!input.name?.trim() || !input.goal?.trim()) throw new Error('Nazwa i cel projektu są wymagane.');
+    const project = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), status: 'draft', currentStage: 'brief', progress: 10, ...input };
+    const projects = [project, ...JSON.parse(localStorage.getItem('startup20-projects') || '[]')];
+    localStorage.setItem('startup20-projects', JSON.stringify(projects));
+    return { project };
+  }
+  throw new Error('Ta funkcja nie jest dostępna w demonstratorze.');
 }
 
 function showToast(message, type = 'info') {
@@ -124,6 +157,7 @@ async function init() {
     document.getElementById('profile-name').textContent = user.name;
     document.getElementById('avatar').textContent = user.name.split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase();
     renderSkills();
+    if (staticDemo) document.querySelector('.agent-badge').textContent = '✦ Tryb demonstracyjny';
   } catch (error) {
     document.getElementById('catalog-loading').textContent = 'Nie udało się wczytać katalogu.';
     showToast(error.message, 'error');
