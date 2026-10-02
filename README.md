@@ -41,6 +41,4 @@ Adaptery są domyślnie wyłączone. API zwraca ten stan jawnie i nie symuluje w
 
 ## Publiczny demonstrator
 
-Workflow `.github/workflows/pages.yml` publikuje frontend do GitHub Pages po każdym pushu do `main`. Na domenie `github.io` aplikacja automatycznie przechodzi w oznaczony tryb demonstracyjny: dane trafiają wyłącznie do `localStorage` danej przeglądarki, a wiadomości nigdy nie są wysyłane. Jest to wersja do prezentacji, nie środowisko produkcyjne.
-
-Do czasu administracyjnego włączenia GitHub Pages demonstrator można otworzyć przez publiczny podgląd CDN: `https://raw.githack.com/grzegorzzuchh-creator/startupy/main/index.html`. Ten host również zawsze wymusza tryb demonstracyjny.
+Gałąź `gh-pages` publikuje frontend pod adresem `https://grzegorzzuchh-creator.github.io/startupy/`. Na domenie `github.io` aplikacja automatycznie przechodzi w oznaczony tryb demonstracyjny: dane trafiają wyłącznie do `localStorage` danej przeglądarki, a wiadomości nigdy nie są wysyłane. Jest to wersja do prezentacji, nie środowisko produkcyjne.
