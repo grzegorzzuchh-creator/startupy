@@ -1,6 +1,6 @@
 const state = { skills: [], runs: [], projects: [], activeSkill: null };
 const toast = document.querySelector('.toast');
-const staticDemo = window.location.hostname.endsWith('github.io');
+const staticDemo = window.location.hostname.endsWith('github.io') || window.location.hostname === 'raw.githack.com';
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
