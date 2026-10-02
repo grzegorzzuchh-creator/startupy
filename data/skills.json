@@ -1,0 +1,82 @@
+[
+  {
+    "id": "send-emails",
+    "title": "Wyślij maile",
+    "description": "Przygotuj spersonalizowaną kampanię i zatwierdź ją przed wysyłką.",
+    "category": "Komunikacja",
+    "icon": "✉",
+    "featured": true,
+    "status": "published",
+    "executor": "outlook",
+    "requiresReview": true,
+    "fields": [
+      { "name": "recipients", "label": "Odbiorcy", "type": "emails", "required": true, "placeholder": "adres@example.com" },
+      { "name": "subject", "label": "Temat", "type": "text", "required": true, "default": "Dostęp do panelu Startup 2.0" },
+      { "name": "message", "label": "Treść", "type": "textarea", "required": true, "default": "Otrzymujesz dostęp do panelu Startup 2.0." }
+    ]
+  },
+  {
+    "id": "expert-database",
+    "title": "Zbuduj bazę ekspertów",
+    "description": "Znajdź ekspertów i przygotuj uporządkowaną bazę do zatwierdzenia.",
+    "category": "Research",
+    "icon": "◎",
+    "featured": true,
+    "status": "published",
+    "executor": "research",
+    "requiresReview": true,
+    "fields": [
+      { "name": "topic", "label": "Branża lub temat", "type": "text", "required": true, "placeholder": "np. technologie medyczne" },
+      { "name": "market", "label": "Rynek", "type": "select", "required": true, "options": ["Polska", "Europa", "Globalnie"], "default": "Polska" },
+      { "name": "count", "label": "Liczba kontaktów", "type": "select", "required": true, "options": ["25", "50", "100"], "default": "50" }
+    ]
+  },
+  {
+    "id": "event-brief",
+    "title": "Przygotuj brief wydarzenia",
+    "description": "Zbierz cele, grupy odbiorców i najważniejsze założenia.",
+    "category": "Planowanie",
+    "icon": "▣",
+    "featured": false,
+    "status": "draft",
+    "executor": "agent",
+    "requiresReview": true,
+    "fields": []
+  },
+  {
+    "id": "prepare-report",
+    "title": "Przygotuj raport",
+    "description": "Zbierz dane i wygeneruj czytelne podsumowanie.",
+    "category": "Analiza",
+    "icon": "▤",
+    "featured": false,
+    "status": "draft",
+    "executor": "agent",
+    "requiresReview": true,
+    "fields": []
+  },
+  {
+    "id": "find-partners",
+    "title": "Znajdź partnerów",
+    "description": "Odkryj firmy dopasowane do projektu targowego.",
+    "category": "Research",
+    "icon": "◇",
+    "featured": false,
+    "status": "draft",
+    "executor": "research",
+    "requiresReview": true,
+    "fields": []
+  },
+  {
+    "id": "market-analysis",
+    "title": "Analizuj rynek",
+    "description": "Poznaj trendy i najważniejsze wnioski dla projektu.",
+    "category": "Analiza",
+    "icon": "▥",
+    "featured": false,
+    "status": "draft",
+    "executor": "research",
+    "requiresReview": true,
+    "fields": []
+  }
+]

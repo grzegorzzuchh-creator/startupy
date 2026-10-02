@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Startup 2.0 — centrum skilli dla zespołów targowych" />
+    <title>Startup 2.0 — Skille</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand" type="button" data-view="skills" aria-label="Startup 2.0 — strona główna"><span>STARTUP</span><strong>2.0</strong></button>
+      <nav aria-label="Główna nawigacja">
+        <button class="nav-link active" type="button" data-view="skills">✦ <span>Skille</span></button>
+        <button class="nav-link" type="button" data-view="creator">◆ <span>Kreator targowy</span></button>
+        <button class="nav-link" type="button" data-view="projects">▢ <span>Projekty</span></button>
+        <button class="nav-link" type="button" data-view="history">◷ <span>Historia</span></button>
+      </nav>
+      <button class="profile" type="button" aria-label="Menu użytkownika">
+        <span class="avatar" id="avatar">U</span><span class="profile-name" id="profile-name">Użytkownik</span><span aria-hidden="true">⌄</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="view active" data-page="skills" aria-labelledby="skills-title">
+        <div class="hero">
+          <div><p class="eyebrow">TWOJE CENTRUM PRACY</p><h1 id="skills-title">Co chcesz dzisiaj zrobić?</h1><p>Wybierz skill, który wykona zadanie za Ciebie.</p></div>
+          <div class="agent-badge">✦ Katalog skilli</div>
+        </div>
+        <div id="catalog-loading" class="empty-state">Wczytuję skille…</div>
+        <section id="featured-skills" class="featured-grid" aria-label="Najważniejsze skille"></section>
+        <section id="more-section" class="more-skills" hidden>
+          <div class="section-heading"><h2>Pozostałe skille</h2><span class="catalog-count" id="catalog-count"></span></div>
+          <div id="more-skills" class="skills-grid"></div>
+        </section>
+      </section>
+
+      <section class="view" data-page="creator" aria-labelledby="creator-title" hidden>
+        <div class="page-heading"><p class="eyebrow">MODUŁ PROJEKTOWY</p><h1 id="creator-title">Kreator targowy</h1><p>Poprowadzi cały projekt przez kolejne etapy — od briefu do uruchomienia.</p></div>
+        <div class="creator-layout">
+          <form id="creator-form" class="panel form-panel">
+            <div class="stage-badge">Etap 1 z 6 · Brief</div>
+            <h2>Nowy projekt targowy</h2>
+            <label for="project-name">Nazwa projektu</label><input id="project-name" name="name" required maxlength="160" placeholder="np. Warsaw HealthTech Expo" />
+            <label for="project-goal">Główny cel</label><textarea id="project-goal" name="goal" required rows="4" placeholder="Jaki efekt biznesowy ma osiągnąć wydarzenie?"></textarea>
+            <label for="project-audience">Grupa odbiorców</label><textarea id="project-audience" name="audience" rows="3" placeholder="Dla kogo tworzymy wydarzenie?"></textarea>
+            <label for="project-market">Rynek</label><select id="project-market" name="market"><option>Polska</option><option>Europa</option><option>Globalnie</option></select>
+            <button class="primary-button full-button" type="submit">Utwórz wersję roboczą →</button>
+          </form>
+          <aside class="panel stages-panel"><h2>Etapy kreatora</h2><ol class="stages"><li class="current"><b>1</b><span><strong>Brief</strong><small>Cele i założenia</small></span></li><li><b>2</b><span><strong>Rynek</strong><small>Analiza i pozycjonowanie</small></span></li><li><b>3</b><span><strong>Program</strong><small>Zakres i agenda</small></span></li><li><b>4</b><span><strong>Partnerzy</strong><small>Wystawcy i eksperci</small></span></li><li><b>5</b><span><strong>Komunikacja</strong><small>Kampanie i materiały</small></span></li><li><b>6</b><span><strong>Uruchomienie</strong><small>Kontrola gotowości</small></span></li></ol></aside>
+        </div>
+      </section>
+
+      <section class="view" data-page="projects" aria-labelledby="projects-title" hidden>
+        <div class="page-heading"><p class="eyebrow">KREATOR TARGOWY</p><h1 id="projects-title">Twoje projekty</h1><p>Wersje robocze i postęp przygotowania wydarzeń.</p></div>
+        <div id="projects-list" class="records-grid"><div class="empty-state">Brak projektów.</div></div>
+      </section>
+
+      <section class="view" data-page="history" aria-labelledby="history-title" hidden>
+        <div class="page-heading"><p class="eyebrow">AKTYWNOŚĆ</p><h1 id="history-title">Historia uruchomień</h1><p>Wszystkie zadania, podglądy i elementy oczekujące na zatwierdzenie.</p></div>
+        <div id="runs-list" class="records-list"><div class="empty-state">Nie uruchomiono jeszcze żadnego skilla.</div></div>
+      </section>
+    </main>
+
+    <dialog id="skill-modal" aria-labelledby="skill-dialog-title">
+      <form id="skill-form" class="dialog-shell">
+        <div class="dialog-header"><div><span class="dialog-kicker">SKILL</span><h2 id="skill-dialog-title"></h2></div><button class="close-button" type="button" data-close aria-label="Zamknij">×</button></div>
+        <p class="dialog-intro" id="skill-dialog-description"></p>
+        <div id="skill-fields"></div>
+        <div class="notice"><strong>Kontrola przed działaniem</strong><span>Operacje zewnętrzne wymagają zatwierdzenia. Samo uruchomienie formularza niczego nie publikuje ani nie wysyła.</span></div>
+        <div class="dialog-actions"><button class="secondary-button" type="button" data-close>Anuluj</button><button class="primary-button" type="submit">Przygotuj zadanie →</button></div>
+      </form>
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
