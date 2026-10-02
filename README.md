@@ -10,7 +10,7 @@ Wymagany jest Node.js 20 lub nowszy. Projekt nie ma zewnętrznych zależności.
 npm start
 ```
 
-Aplikacja domyślnie działa na `http://127.0.0.1:4173`. Kontrola gotowości:
+Aplikacja domyślnie nasłuchuje na `0.0.0.0:4173` i respektuje zmienną `PORT` dostarczaną przez hosting. Lokalna kontrola gotowości:
 
 ```bash
 curl --fail http://127.0.0.1:4173/api/health

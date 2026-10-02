@@ -11,7 +11,7 @@ import { requireRole, resolveUser } from './lib/auth.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4173);
-const host = process.env.HOST || '127.0.0.1';
+const host = process.env.HOST || '0.0.0.0';
 const stateFile = process.env.STATE_FILE || join(root, 'var', 'state.json');
 const store = new JsonStore(stateFile);
 await store.init();
